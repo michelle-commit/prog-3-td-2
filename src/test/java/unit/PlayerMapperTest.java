@@ -8,6 +8,7 @@ import app.foot.repository.TeamRepository;
 import app.foot.repository.entity.MatchEntity;
 import app.foot.repository.entity.PlayerEntity;
 import app.foot.repository.entity.PlayerScoreEntity;
+import app.foot.repository.entity.TeamEntity;
 import app.foot.repository.mapper.PlayerMapper;
 import org.junit.jupiter.api.Test;
 
@@ -99,5 +100,24 @@ public class PlayerMapperTest {
                 .ownGoal(false)
                 .match(matchEntity1)
                 .build(), actual);
+    }
+    @Test
+    void player_to_entity_ok(){
+        PlayerEntity expected = PlayerEntity.builder()
+                .id(1)
+                .name("tsiry")
+                .guardian(false)
+                .team(TeamEntity.builder()
+                        .id(1)
+                        .name("G1").build())
+                .build();
+        PlayerEntity actual = subject.toEntity(Player.builder()
+                .id(1)
+                .name("tsiry")
+                .isGuardian(false)
+                .teamName("azert")
+                .build());
+
+        assertEquals(expected,actual);
     }
 }

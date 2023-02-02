@@ -39,6 +39,7 @@ class MatchIntegrationTest {
         assertEquals(expectedMatch2(), actual);
     }
 
+
     private static Match expectedMatch2() {
         return Match.builder()
                 .id(2)
