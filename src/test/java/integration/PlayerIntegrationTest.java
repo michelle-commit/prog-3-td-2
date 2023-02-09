@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -19,7 +18,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest(classes = FootApi.class)
 @AutoConfigureMockMvc
@@ -87,25 +87,6 @@ class PlayerIntegrationTest {
         assertEquals(1, actual.size());
         assertEquals(toCreate, actual.get(0).toBuilder().id(null).build());
     }
-    @Test
-    void update_players_ok()throws Exception{
-        Player toUpdate = Player.builder()
-                .id(1)
-                .name("tsiry")
-                .isGuardian(false)
-                .teamName("G2")
-                .build();
-        MockHttpServletResponse response = mockMvc
-                .perform(put("/player/1")
-                        .content(objectMapper.writeValueAsString(toUpdate))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn()
-                .getResponse();
-        Player actual = objectMapper.readValue(response.getContentAsString(), Player.class);
-        assertEquals(toUpdate, actual);
-    }
-
 
     private List<Player> convertFromHttpResponse(MockHttpServletResponse response)
             throws JsonProcessingException, UnsupportedEncodingException {

@@ -31,11 +31,10 @@ public class PlayerController {
                 .map(mapper::toRest)
                 .collect(Collectors.toUnmodifiableList());
     }
-    @PutMapping("/player")
-    public List<Player> updatePlayer(@RequestBody List<Player>toUpdate){
-        List<app.foot.model.Player> domain = toUpdate.stream().map(mapper::toDomain).toList();
-                return service.updatePlayers(domain).stream()
-                        .map(mapper::toRest).toList();
+    @PutMapping("/players")
+    public List<Player> updatePlayer(@RequestBody List<Player> toUpdate){
+        List<app.foot.model.Player> players = toUpdate.stream().map(mapper::toDomain).toList();
+        return service.toUpdate(players).stream().map(mapper::toRest).toList();
     }
 
     //TODO: add PUT /players where you can modify the name and the guardian status of a player

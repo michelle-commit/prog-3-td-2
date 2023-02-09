@@ -26,6 +26,7 @@ public class PlayerMapper {
                 .build();
     }
 
+
     public PlayerScorer toDomain(PlayerScoreEntity entity) {
         return PlayerScorer.builder()
                 .player(toDomain(entity.getPlayer()))
@@ -43,10 +44,7 @@ public class PlayerMapper {
                 .build();
     }
 
-    //
-    //
-    //
-    // TODO: add unit test ok and ko for this
+    //TODO: add unit test ok and ko for this
     public PlayerEntity toEntity(Player domain) {
         return PlayerEntity.builder()
                 .id(domain.getId())
